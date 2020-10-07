@@ -25,10 +25,10 @@ const SingleBeerStyles = styled.div`
 const Beers = ({ data }) => (
   <>
     <h2 className="center">
-      We have {data.allBeer.nodes.length} Beers Available. Dine in Only!
+      We have {data.beers.nodes.length} Beers Available. Dine in Only!
     </h2>
     <BeerGridStyles>
-      {data.allBeer.nodes.map((beer) => {
+      {data.beers.nodes.map((beer) => {
         const rating = Math.round(beer.rating.average);
         return (
           <SingleBeerStyles key={beer.id}>
@@ -54,7 +54,7 @@ export default Beers;
 
 export const query = graphql`
   query allBeerQuery {
-    allBeer {
+    beers: allBeer {
       nodes {
         id
         image
