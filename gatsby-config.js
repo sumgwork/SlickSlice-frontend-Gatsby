@@ -7,6 +7,7 @@ export default {
     title: `Slicks Slices`,
     siteUrl: 'http://localhost:8000',
     description: 'The best pizza place in Sydney',
+    twitter: '@slicksSlices',
   },
   plugins: [
     // For critical CSS rendering by Gatsby
@@ -21,5 +22,6 @@ export default {
         token: process.env.SANITY_TOKEN,
       },
     },
+    'gatsby-plugin-react-helmet',
   ],
 };

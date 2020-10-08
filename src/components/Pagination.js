@@ -16,6 +16,9 @@ const PaginationStyles = styled.div`
     flex: 1;
     border-right: 1px solid var(--grey);
     text-decoration: none;
+    &[disabled] {
+      visibility: hidden;
+    }
     &[aria-current],
     .current {
       color: var(--red);
@@ -35,9 +38,7 @@ const Pagination = ({ pageSize, totalCount, currentPage, skip, base }) => {
         ⬅️ Prev
       </Link>
       {Array.from({ length: totalPages }).map((_, i) => (
-        <Link disabled={!hasPrevPage} to={`${base}/${i > 0 ? i + 1 : ''}`}>
-          {i + 1}
-        </Link>
+        <Link to={`${base}/${i > 0 ? i + 1 : ''}`}>{i + 1}</Link>
       ))}
       <Link disabled={!hasNextPage} to={`${base}/${nextPage}`}>
         Next ➡️

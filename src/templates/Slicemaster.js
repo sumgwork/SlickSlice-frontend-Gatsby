@@ -1,24 +1,20 @@
-import React from 'react';
-import styled from 'styled-components';
-import Img from 'gatsby-image';
 import { graphql } from 'gatsby';
+import Img from 'gatsby-image';
+import React from 'react';
+import SEO from '../components/SEO';
 
-const PersonGrid = styled.div`
-  display: grid;
-  grid-gap: 2rem;
-  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-`;
 const Slicemaster = ({ data }) => {
   const { slicemaster } = data;
 
   return (
-    <PersonGrid>
+    <>
+      <SEO title={slicemaster.name} image={slicemaster.image.asset.fluid.src} />
       <Img fluid={slicemaster.image.asset.fluid} />
       <div>
         <h2 className="mark">{slicemaster.name}</h2>
         <p>{slicemaster.description}</p>
       </div>
-    </PersonGrid>
+    </>
   );
 };
 
