@@ -1,5 +1,22 @@
 const { useState, useEffect } = require('react');
 
+const gql = String.raw; // only for syntax correction below
+
+// _id instead of id because we are querying Sanity directly
+// low quality image placeholder
+const deets = `
+name
+_id 
+image {
+  asset {
+    url
+    metadata {
+      lqip
+    }
+  }
+}
+`;
+
 const useLatestData = () => {
   // hot slices
   const [hotSlices, setHotSlices] = useState();
@@ -13,18 +30,19 @@ const useLatestData = () => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        query: `
-               query {
-                 StoreSettings(id: "downtown"){
-                   name
-                   slicemaster {
-                     name
-                   }
-                   hotSlices{
-                     name
-                   }
-                 }
-               }`,
+        query: gql`
+          query {
+            StoreSettings(id: "downtown") {
+              name
+              slicemaster {
+                ${deets}
+              }
+              hotSlices {
+                ${deets}
+              }
+            }
+          }
+        `,
       }),
     })
       .then((res) => res.json())
@@ -32,7 +50,8 @@ const useLatestData = () => {
         // Check for errors
         setHotSlices(res.data.StoreSettings.hotSlices);
         setSlicemasters(res.data.StoreSettings.slicemaster);
-      });
+      })
+      .catch((error) => console.error(error));
   }, []);
   return {
     hotSlices,

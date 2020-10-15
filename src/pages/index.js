@@ -1,32 +1,46 @@
 import React from 'react';
+import ItemGrid from '../components/ItemGrid';
+import LoadingGrid from '../components/LoadingGrid';
+import { HomePageGrid } from '../styles/Grids';
 import useLatestData from '../utils/useLatestData';
 
 const CurrentlySlicing = ({ slicemasters }) => (
   <div>
-    <p>Currently Slicing</p>
+    <h2 className="center">
+      <span className="mark tilt">Slicemasters on</span>
+    </h2>
+    <p>Standing by, ready to slice you up!</p>
+    {!slicemasters && <LoadingGrid count={4} />}
+    {slicemasters && !slicemasters?.length && (
+      <p>No one is working right now!</p>
+    )}
+    {slicemasters && slicemasters?.length && <ItemGrid items={slicemasters} />}
   </div>
 );
 
 const HotSlices = ({ hotSlices }) => (
   <div>
-    <p>HotSlices</p>
+    <h2 className="center">
+      <span className="mark tilt">Hot Slices</span>
+    </h2>
+    <p>Come on by, Buy the slice!</p>
+    {!hotSlices && <LoadingGrid count={4} />}
+    {hotSlices && !hotSlices?.length && <p>Nothin' in the Case</p>}
+    {hotSlices && hotSlices?.length && <ItemGrid items={hotSlices} />}
   </div>
 );
 
 const Homepage = () => {
-  console.log('home page');
   const { hotSlices, slicemasters } = useLatestData();
-  console.log('hotSlices', hotSlices);
-  console.log('slicemasters', slicemasters);
 
   return (
     <div className="center">
       <h1>The Best Pizza Downtown!</h1>
       <p>Open 11am to 11pm Every Single Day</p>
-      <div>
+      <HomePageGrid>
         <CurrentlySlicing slicemasters={slicemasters} />
         <HotSlices hotSlices={hotSlices} />
-      </div>
+      </HomePageGrid>
     </div>
   );
 };
