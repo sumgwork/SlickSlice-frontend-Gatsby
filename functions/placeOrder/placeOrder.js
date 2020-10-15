@@ -43,7 +43,6 @@ exports.handler = async (event, _context) => {
   // Validate data
   const requiredFields = ['email', 'name', 'order'];
   for (const field of requiredFields) {
-    console.log(`Checking if ${field} is present`);
     if (!body[field]) {
       return {
         statusCode: 400,
